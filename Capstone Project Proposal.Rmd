@@ -1,0 +1,46 @@
+---
+title: "Capstone Project Proposal"
+author: "Caitlin Davies"
+date: "10/26/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Defining the Problem
+
+The climate is changing, and it is changing unevenly across the globe. These changes affect farmers and gardeners in unique ways^[1](https://19january2017snapshot.epa.gov/climate-impacts/climate-impacts-agriculture-and-food-supply_.html)^, causing such questions as; 
+
+* When should I sow seed, given changes to the USDA Plant Hardiness Zones?
+* How quickly will temperature and carbon dioxide increase locally, and how will those changing variables affect crop yields?
+* Will water conditions shift, causing too much (flooding), or too little (drought)?
+* How will my local ecosystem adapt as the climate rapidly changes?
+* When should I harvest?
+* Will climate change reduce nutrient density in the food I produce? 
+
+And, in turn, these questions affect everyone that eats food. (Barring those that eat soylent, I measure that this group includes "everyone.")
+
+In order to answer the questions above, we must be able to measure the changes to temperature, carbon dioxide, and water availability over time, and predict where those changes will lead in the future.
+
+## Defining the Client
+
+As of 2015, Minnesota ranked 5th in the United States for total agricultural production, 5th for crop production, and 8th for livestock production (measured in U.S. dollars). 51% of the state is farmland, divided into nearly 75,000 farms.^[2](https://www.mda.state.mn.us/~/media/Files/agprofile.ashx)^
+
+And Minnesota, as with all localities, is experiencing climate change.
+
+With the analysis provided in this capstone, Minnesotan farmers will be able to use data to proactively adapt to the changing climate. 
+
+## Defining the Data
+
+Data will be obtained from; 
+
+* The Midwestern Regional Climate Center^[3](http://mrcc.isws.illinois.edu/CLIMATE/)^
+* Other supplemental sources as necessary
+
+## Defining the Deliverables
+
+* Code
+* Paper
+* Slide Deck
