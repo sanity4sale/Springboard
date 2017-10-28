@@ -1,0 +1,34 @@
+---
+title: "Cleaning Climate Data Upon Import"
+output: html_notebook
+---
+
+***
+
+##Import the Dirty Dataset and Clean It
+
+***
+
+####Set the import_file variable;
+
+```{r}
+import_file <- "ADRIAN_SD_b2dates.csv"
+dirty <- read.csv(import_file, skip = 7, header = TRUE)
+clean <- head(dirty, -14)
+rm(dirty)
+```
+
+
+***
+
+
+##Rename to Unique Filename
+
+***
+
+####Set the new filename;
+
+```{r}
+ADRIAN_data <- clean
+rm(clean)
+```
