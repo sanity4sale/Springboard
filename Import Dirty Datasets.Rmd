@@ -16,6 +16,7 @@ import_file <- "ADRIAN_SD_b2dates.csv"
 dirty <- read.csv(import_file, skip = 7, header = TRUE)
 clean <- head(dirty, -14)
 rm(dirty)
+clean[clean == "M"] <- NA
 ```
 
 
