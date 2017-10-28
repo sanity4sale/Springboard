@@ -9,7 +9,7 @@ output: html_notebook
 
 ***
 
-####Set the import_file variable;
+####TO DO : Set the import_file variable;
 
 ```{r}
 import_file <- "ADRIAN_SD_b2dates.csv"
@@ -26,9 +26,10 @@ rm(dirty)
 
 ***
 
-####Set the new filename;
+####TO DO : Set the new filename;
 
 ```{r}
 ADRIAN_data <- clean
 rm(clean)
+rm(import_file)
 ```
