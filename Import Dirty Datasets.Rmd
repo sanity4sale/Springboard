@@ -25,7 +25,8 @@ rm(dirty)
 ##Convert "missing" data to "NA";
 clean[clean == "M"] <- NA
 
-##Convert data to numeric; 
+##Convert to date OR numeric; 
+clean[,1] <- as.Date(clean[,1], "%Y-%m-%d")
 clean[,c(2:7)] <- as.data.frame(sapply(clean[,c(2:7)], as.numeric))
 
 ##Rename file + remove supportive data frames; 
