@@ -9,28 +9,30 @@ output: html_notebook
 
 ***
 
-####TO DO : Set the import_file variable;
+####__TO DO__ : Set the import_file variable;
 
 ```{r}
-import_file <- "ADRIAN_SD_b2dates.csv"
-dirty <- read.csv(import_file, skip = 7, header = TRUE)
+import_file <- ""
+
+##Strip unformatted header data + import data as characters;
+dirty <- read.csv(import_file, skip = 7, colClasses = c(rep("character",7)), header = TRUE)
+
+##Strip unformatted tail data + extra column;
 clean <- head(dirty, -14)
+clean <- clean[,-8]
 rm(dirty)
+
+##Convert "missing" data to "NA";
 clean[clean == "M"] <- NA
-```
 
+##Convert data to numeric; 
+clean[,c(2:7)] <- as.data.frame(sapply(clean[,c(2:7)], as.numeric))
 
-***
-
-
-##Rename to Unique Filename
-
-***
-
-####TO DO : Set the new filename;
-
-```{r}
-ADRIAN_data <- clean
+##Rename file + remove supportive data frames; 
+new_name <- sub(" SD_b2dates.csv", "", import_file)
+new_name <- gsub(" ", "_", new_name)
+assign(new_name, clean)
+rm(new_name)
 rm(clean)
 rm(import_file)
 ```
