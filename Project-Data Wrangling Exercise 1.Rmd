@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-## Install stringr
+## Install Packages
 
 library("dplyr")
 library("tidyr")
