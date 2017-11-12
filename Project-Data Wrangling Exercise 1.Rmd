@@ -20,25 +20,27 @@ library("stringr")
 
 refine_original <- read.csv("refine_original.csv", header = TRUE, stringsAsFactors = FALSE)
 
+refine_clean <- refine_original
+
 ## Clean Up Brand Names
 
-refine_original$company <- sapply(refine_original$company, tolower)
+refine_clean$company <- sapply(refine_clean$company, tolower)
 
-refine_original$company <- str_replace(refine_original$company, "phl", "phil")
-refine_original$company <- str_replace(refine_original$company, "lps", "lips")
-refine_original$company <- str_replace(refine_original$company, "fil", "phil")
-refine_original$company <- str_replace(refine_original$company, "illi", "ili")
+refine_clean$company <- str_replace(refine_clean$company, "phl", "phil")
+refine_clean$company <- str_replace(refine_clean$company, "lps", "lips")
+refine_clean$company <- str_replace(refine_clean$company, "fil", "phil")
+refine_clean$company <- str_replace(refine_clean$company, "illi", "ili")
 
-refine_original$company <- str_replace(refine_original$company, "0", "o")
-refine_original$company <- str_replace(refine_original$company, "ak ", "ak")
+refine_clean$company <- str_replace(refine_clean$company, "0", "o")
+refine_clean$company <- str_replace(refine_clean$company, "ak ", "ak")
 
-refine_original$company <- str_replace(refine_original$company, "lver", "lever")
+refine_clean$company <- str_replace(refine_clean$company, "lver", "lever")
 
-refine_original <- refine_original[order(refine_original$company),]
+refine_clean <- refine_clean[order(refine_clean$company),]
 
 ## Separate Product Code and Number
 
-refine_original <- refine_original %>%
+refine_clean <- refine_clean %>%
   separate(Product.code...number, c("product_code", "product_number"), "-")
 
 ## Add Product Categories
@@ -46,27 +48,29 @@ refine_original <- refine_original %>%
 index <- c("p", "v", "x", "q")
 Product_Categories <- c("Smartphone", "TV", "Laptop", "Tablet")
 
-refine_original$product_categories <- Product_Categories[match(refine_original$product_code, index)]
+refine_clean$product_categories <- Product_Categories[match(refine_clean$product_code, index)]
 
 rm(index)
 rm(Product_Categories)
 
 ## Add Full Address for Geocoding
 
-refine_original <- unite(refine_original, "full_address", address, city, country, sep = ",", remove = FALSE)
+refine_clean <- unite(refine_clean, "full_address", address, city, country, sep = ",", remove = FALSE)
 
 ## Create Dummy Variables for Company
 
-refine_original$company_philips <- as.numeric(refine_original$company == "philips")
-refine_original$company_akzo <- as.numeric(refine_original$company == "akzo")
-refine_original$company_van_houten <- as.numeric(refine_original$company == "van houten")
-refine_original$company_unilever <- as.numeric(refine_original$company == "unilever")
+refine_clean$company_philips <- as.numeric(refine_clean$company == "philips")
+refine_clean$company_akzo <- as.numeric(refine_clean$company == "akzo")
+refine_clean$company_van_houten <- as.numeric(refine_clean$company == "van houten")
+refine_clean$company_unilever <- as.numeric(refine_clean$company == "unilever")
 
 ## Create Dummy Variables for Product Category
 
-refine_original$product_smartphone <- as.numeric(refine_original$product_categories == "Smartphone")
-refine_original$product_tv <- as.numeric(refine_original$product_categories == "TV")
-refine_original$product_laptop <- as.numeric(refine_original$product_categories == "Laptop")
-refine_original$product_tablet <- as.numeric(refine_original$product_categories == "Tablet")
+refine_clean$product_smartphone <- as.numeric(refine_clean$product_categories == "Smartphone")
+refine_clean$product_tv <- as.numeric(refine_clean$product_categories == "TV")
+refine_clean$product_laptop <- as.numeric(refine_clean$product_categories == "Laptop")
+refine_clean$product_tablet <- as.numeric(refine_clean$product_categories == "Tablet")
+
+write.csv(refine_clean, "~/Springboard/Springboard-Capstone/refine_clean.csv")
 
 ```
