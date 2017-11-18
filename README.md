@@ -8,4 +8,6 @@ Both individual homework assignments, and my Capstone Project work.
 
 Projects include; 
 
-https://github.com/sanity4sale/Springboard/find/master 
+https://github.com/sanity4sale/Springboard/find/master
+
+Verify verify verify
