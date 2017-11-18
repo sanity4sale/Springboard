@@ -1,0 +1,40 @@
+---
+title: "Project: Data Wrangling Exercise 2: Dealing with Missing Values"
+author: "Caitlin Davies"
+date: "11/18/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+## Load the data in RStudio
+
+titanic_original <- read.csv("titanic_original.csv", header = TRUE, stringsAsFactors = FALSE)
+titanic_clean <- titanic_original
+
+## Port of embarkation
+
+titanic_clean$embarked <- sub("^$", "S", titanic_clean$embarked)
+titanic_clean$embarked <- as.factor(titanic_clean$embarked)
+
+## Age
+
+titanic_clean$age[which(is.na(titanic_clean$age))] <- mean(titanic_clean$age, na.rm = TRUE)
+
+## Lifeboat
+
+titanic_clean$boat <- sub("^$", "NA", titanic_clean$boat)
+titanic_clean$boat <- as.factor(titanic_clean$boat)
+
+## Cabin
+
+titanic_clean$has_cabin_number <- ifelse(grepl(".", titanic_clean$cabin), 1, 0)
+
+## Export clean CSV dataset
+
+write.csv(titanic_clean, "~/Springboard/Springboard-Capstone/titanic_clean.csv")
+
+```
