@@ -8,6 +8,8 @@
 ## The code below will convert a raw “Daily-Observed / Between Two Dates” 
 ## dataset into an R-ready dataset.
 
+## BEFORE RUNNING : Set the import_file variable;
+
 import_file <- ""
 
 ## Strip unformatted header data + import data as characters;
@@ -30,6 +32,11 @@ clean[,1] <- as.Date(clean[,1], "%Y-%m-%d")
 clean[,c(2:7)] <- as.data.frame(sapply(clean[,c(2:7)], as.numeric))
 clean[,7] <- NULL
 
+## Remove rows where observations are NULL;
+
+clean$Count.NA <- rowSums(is.na(clean))
+clean <- clean[!clean$Count.NA == "5", ]
+
 ## Rename file + remove supportive data frames; 
 
 new_name <- sub(" SD_b2dates.csv", "", import_file)
@@ -38,4 +45,3 @@ assign(new_name, clean)
 rm(new_name)
 rm(clean)
 rm(import_file)
-
