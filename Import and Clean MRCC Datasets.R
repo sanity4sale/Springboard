@@ -5,7 +5,8 @@
 
 #### http://mrcc.isws.illinois.edu/CLIMATE/index.jsp
 
-## The code below will convert a raw “Daily-Observed / Between Two Dates” dataset into an R-ready dataset.
+## The code below will convert a raw “Daily-Observed / Between Two Dates” 
+## dataset into an R-ready dataset.
 
 import_file <- ""
 
@@ -37,3 +38,4 @@ assign(new_name, clean)
 rm(new_name)
 rm(clean)
 rm(import_file)
+
