@@ -27,7 +27,7 @@ list.files("dataSets") # files in the dataSets folder
 ## ────────────────────────
 
 # read the states data
-states.data <- readRDS("dataSets/states.rds") 
+states.data <- readRDS("states.rds")
 #get labels
 states.info <- data.frame(attributes(states.data)[c("names", "var.labels")])
 #look at last few labels
@@ -201,5 +201,13 @@ coef(summary(lm(csat ~ C(region, contr.helmert),
 ##   1. Add on to the regression equation that you created in exercise 1 by
 ##      generating an interaction term and testing the interaction.
 
+sat.mod.int <- lm(csat ~ expense*percent + high,
+              data=states.data)
+summary(sat.mod.int)
+
 ##   2. Try adding region to the model. Are there significant differences
 ##      across the four regions?
+
+sat.mod.int2 <- lm(csat ~ expense*percent + high + region,
+                  data=states.data)
+summary(sat.mod.int2)
