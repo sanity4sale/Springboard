@@ -26,6 +26,7 @@
 
 NH11 <- readRDS("dataSets/NatHealth2011.rds")
 labs <- attributes(NH11)$labels
+View(labs)
 
 ##   [CDC website] http://www.cdc.gov/nchs/nhis.htm
 
@@ -39,9 +40,12 @@ str(NH11$hypev) # check stucture of hypev
 levels(NH11$hypev) # check levels of hypev
 # collapse all missing values to NA
 NH11$hypev <- factor(NH11$hypev, levels=c("2 No", "1 Yes"))
+levels(NH11$hypev)
+
 # run our regression model
 hyp.out <- glm(hypev~age_p+sex+sleep+bmi,
               data=NH11, family="binomial")
+hyp.out
 coef(summary(hyp.out))
 
 ## Logistic regression coefficients
@@ -90,7 +94,9 @@ cbind(predDat, predict(hyp.out, type = "response",
 ##   Instead of doing all this ourselves, we can use the effects package to
 ##   compute quantities of interest for us (cf. the Zelig package).
 
+install.packages("effects")
 library(effects)
+
 plot(allEffects(hyp.out))
 
 ## Exercise: logistic regression
@@ -100,8 +106,49 @@ plot(allEffects(hyp.out))
 
 ##   1. Use glm to conduct a logistic regression to predict ever worked
 ##      (everwrk) using age (age_p) and marital status (r_maritl).
+
+str(NH11$everwrk)
+levels(NH11$everwrk)
+NH11$everwrk <- factor(NH11$everwrk, levels=c("2 No", "1 Yes"))
+levels(NH11$everwrk)
+
+# remove bad sleep data
+summary(NH11$sleep)
+NH11 <- subset(NH11, sleep < 97)
+summary(NH11$sleep)
+
+str(NH11$age_p)
+
+str(NH11$r_maritl)
+levels(NH11$r_maritl)
+
+# shorten marital status levels, to make the x-axis labels easier to read on the plot
+levels(NH11$r_maritl) <- c("U14Yrs", "MSIH", "MSNIH", "MSIHU", "W", "D", "S", "NM", "LWP", "U")
+levels(NH11$r_maritl)
+
+everwrk.out <- glm(everwrk ~ age_p + r_maritl,
+               data = NH11, family = "binomial")
+everwrk.out.tab <- coef(summary(everwrk.out))
+
+everwrk.out.tab[, "Estimate"] <- exp(coef(everwrk.out))
+everwrk.out.tab
+
+plot(everwrk ~ age_p, data = NH11)
+plot(everwrk ~ r_maritl, data = NH11)
+
+plot(allEffects(everwrk.out))
+
 ##   2. Predict the probability of working for each level of marital
 ##      status.
+
+predDat2 <- with(NH11, expand.grid(r_maritl = unique(NH11$r_maritl),
+                                   age_p = mean(age_p, na.rm = TRUE)))
+
+predDat2.tab <- cbind(predDat2, predict(everwrk.out, type = "response",
+                       se.fit = TRUE, interval="confidence",
+                       newdata = predDat2))
+
+predDat2.tab
 
 ##   Note that the data is not perfectly clean and ready to be modeled. You
 ##   will need to clean up at least some of the variables before fitting
