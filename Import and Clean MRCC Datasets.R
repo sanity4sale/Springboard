@@ -8,9 +8,36 @@
 ## The code below will convert a raw “Daily-Observed / Between Two Dates” 
 ## dataset into an R-ready dataset.
 
-## BEFORE RUNNING : Set the import_file variable;
+
+
+
+
+## BEFORE RUNNING : Set the import_file variable. IMPORT FILE MUST BE IN WORKING DIRECTORY;
+
+
+
+
 
 import_file <- ""
+
+
+
+
+
+## BEFORE RUNNING : If not already done, import and apply tidyr;
+
+
+
+
+
+install.packages("tidyr")
+library("tidyr")
+
+
+
+
+
+## The remaining code can be run with no manual inputs.
 
 ## Strip unformatted header data + import data as characters;
 
@@ -36,6 +63,10 @@ clean[,7] <- NULL
 
 clean$Count.NA <- rowSums(is.na(clean))
 clean <- clean[!clean$Count.NA == "5", ]
+
+## Separate date column for future analysis
+
+clean <- separate(clean, Date, c("Year", "Month", "Day"), sep = "-", remove = TRUE)
 
 ## Rename file + remove supportive data frames; 
 
