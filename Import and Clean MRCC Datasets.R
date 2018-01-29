@@ -66,7 +66,10 @@ clean <- clean[!clean$Count.NA == "5", ]
 
 ## Separate date column for future analysis
 
-clean <- separate(clean, Date, c("Year", "Month", "Day"), sep = "-", remove = TRUE)
+clean <- separate(clean, Date, c("Year", "Month", "Day"), sep = "-", remove = FALSE)
+clean$Year <- as.numeric(clean$Year)
+clean$Month <- as.numeric(clean$Month)
+clean$Day <- as.numeric(clean$Day)
 
 ## Rename file + remove supportive data frames; 
 
@@ -76,3 +79,4 @@ assign(new_name, clean)
 rm(new_name)
 rm(clean)
 rm(import_file)
+
