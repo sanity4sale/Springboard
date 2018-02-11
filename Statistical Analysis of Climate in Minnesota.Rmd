@@ -150,7 +150,7 @@ ggplot(Stations, aes(x = factor(Climate.Division), y = Observations)) +
 
 ```
 
-Moreover, the cleaned datasets cover very different timeframes:
+Moreover, the cleaned datasets comprise different timeframes:
 
 ```{r station_years, message = FALSE}
 
@@ -188,10 +188,13 @@ Stations.Observations.Min.Max.DF <- data.frame("Station.Name" = Stations$Station
 
 Stations <- inner_join(Stations, Stations.Observations.Min.Max.DF)
 
-Stations %>%
-  select(Station.Name, Min.Year, Max.Year) %>%
-  kable("html") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+ggplot(Stations, aes(Station.Name)) +
+  geom_point(aes(y = Stations$Min.Year, color = "blue")) +
+  geom_point(aes(y = Stations$Max.Year, color = "red")) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "", y = "", title = "Date Range of Collected Datasets") +
+  scale_color_manual(labels=c("First Year in Dataset", "Last Year in Dataset"), values = c("blue", "red")) +
+  theme(legend.position="top", legend.title=element_blank())
 
 ```
 
