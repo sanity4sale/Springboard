@@ -12,17 +12,6 @@
 
 
 
-## BEFORE RUNNING : Set the import_file variable. IMPORT FILE MUST BE IN WORKING DIRECTORY;
-
-
-
-
-
-import_file <- ""
-
-
-
-
 
 ## BEFORE RUNNING : If not already done, import and apply tidyr;
 
@@ -30,8 +19,24 @@ import_file <- ""
 
 
 
+
 install.packages("tidyr")
 library("tidyr")
+
+
+
+
+
+
+## BEFORE RUNNING : Set the import_file variable. IMPORT FILE MUST BE IN WORKING DIRECTORY;
+
+
+
+
+
+
+import_file <- "TWO HARBORS SD_b2dates.csv"
+
 
 
 
